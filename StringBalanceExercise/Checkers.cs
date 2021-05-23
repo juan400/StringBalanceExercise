@@ -5,9 +5,9 @@ namespace StringBalanceExercise
 {
     public class Checkers
     {
-        public static readonly char[] openingCharacters = { '{', '[', '(' };
-        public static readonly char[] closureCharacters = { '}', ']', ')' };
-        public static readonly Dictionary<char, char> charactersEquivalency = new Dictionary<char, char>();
+        private static readonly char[] openingCharacters = { '{', '[', '(' };
+        private static readonly char[] closureCharacters = { '}', ']', ')' };
+        private Dictionary<char, char> charactersEquivalency = new Dictionary<char, char>();
 
         public Checkers()
         {
