@@ -6,6 +6,12 @@ namespace UnitTestProject1
     [TestClass]
     public class UnitTest1
     {
+        [SetUp]
+        public void Init_LoadDependencies(){
+            // Hear you can do all the mocks dependencies you need and simulate expected results of them if you needed
+            // also set context of containers that might you need
+        }
+        
         // Verify that the string has correctly balanced parentheses, straight braces and braces.
 
         // Input: (a + 1) Return: true
@@ -19,23 +25,111 @@ namespace UnitTestProject1
         // Input:([{()}] Return: Flase
         // Input:()({)}[] Return: Flase
         [TestMethod]
-        public void TestMethod1()
+        public void CheckBalance_IsTureWhenCurvedBrackets()
         {
             //Arrange
             var checkers = new Checkers();
 
             //Act
-
+            var result = checkers.CheckBalance("(a + 1)");
             //Assert
-            Assert.IsTrue(checkers.CheckBalance("(a + 1)"));
-            Assert.IsTrue(checkers.CheckBalance("(a + 1{0})"));
-            Assert.IsFalse(checkers.CheckBalance("(a + 1{0)}"));
-            Assert.IsTrue(checkers.CheckBalance("([{[{()}]()[]{}}])"));
-            Assert.IsFalse(checkers.CheckBalance(")({}[]"));
-            Assert.IsTrue(checkers.CheckBalance("{}"));
-            Assert.IsFalse(checkers.CheckBalance("}[()]"));
-            Assert.IsFalse(checkers.CheckBalance("([{()}]"));
-            Assert.IsFalse(checkers.CheckBalance("()({)}[]"));
+            Assert.IsTrue(result);
+        }
+        
+        [TestMethod]
+        public void CheckBalance_IsTureWhenSquareBrackets()
+        {
+            //Arrange
+            var checkers = new Checkers();
+
+            //Act
+            var result = checkers.CheckBalance("[]");
+            //Assert
+            Assert.IsTrue(result);
+        }
+        
+        [TestMethod]
+        public void CheckBalance_IsTureWhenCurlyBrackets()
+        {
+            //Arrange
+            var checkers = new Checkers();
+
+            //Act
+            var result = checkers.CheckBalance("{}");
+            //Assert
+            Assert.IsTrue(result);
+        }
+        
+        [TestMethod]
+        public void CheckBalance_IsTureWhenCurvedAndCurlyBrackets()
+        {
+            //Arrange
+            var checkers = new Checkers();
+
+            //Act
+            var result = checkers.CheckBalance("(a + 1{0})");
+            //Assert
+            Assert.IsTrue(result);
+        }
+        
+        [TestMethod]
+        public void CheckBalance_IsTureWhenCurvedSquareAndCurlyBrackets()
+        {
+            //Arrange
+            var checkers = new Checkers();
+
+            //Act
+            var result = checkers.CheckBalance("([{[{()}]()[]{}}])"));
+            //Assert
+            Assert.IsTrue(result);
+        }
+        
+        [TestMethod]
+        public void CheckBalance_IsFalseWhenAppearFirstAnEndingCurveBracket()
+        {
+            //Arrange
+            var checkers = new Checkers();
+
+            //Act
+            var result = checkers.CheckBalance(")({}[]"));
+            //Assert
+            Assert.IsFalse(result);
+        }
+        
+        [TestMethod]
+        public void CheckBalance_IsFalseWhenAppearFirstAnEndingCurlyBracket()
+        {
+            //Arrange
+            var checkers = new Checkers();
+
+            //Act
+            var result = checkers.CheckBalance("}[()]"));
+            //Assert
+            Assert.IsFalse(result);
+        }
+        
+        [TestMethod]
+        public void CheckBalance_IsFalseWhenMissAnEndingBracket()
+        {
+            //Arrange
+            var checkers = new Checkers();
+
+            //Act
+            var result = checkers.CheckBalance("([{()}]"));
+            //Assert
+            Assert.IsFalse(result);
+        }
+        
+        [TestMethod]
+        public void CheckBalance_IsFalseWhenOverlayingBracketTypes()
+        {
+            //Arrange
+            var checkers = new Checkers();
+
+            //Act
+            var result = checkers.CheckBalance("()({)}[]"));
+            //Assert
+            Assert.IsFalse(result);
         }
     }
 }
